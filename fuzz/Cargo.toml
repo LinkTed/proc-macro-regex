@@ -1,0 +1,18 @@
+[package]
+name = "fuzz"
+version = "0.1.0"
+authors = ["LinkTed <link.ted@mailbox.org>"]
+edition = "2018"
+
+[dependencies]
+regex = "~1.4.6"
+honggfuzz = "~0.5.54"
+
+[dependencies.proc-macro-regex]
+path = ".."
+
+[[bin]]
+name = "check"
+path = "src/check.rs"
+test = false
+doc = false

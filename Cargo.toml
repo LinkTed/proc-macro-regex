@@ -1,0 +1,41 @@
+[package]
+name = "proc-macro-regex"
+version = "0.1.0"
+authors = ["LinkTed <link.ted@mailbox.org>"]
+license = "BSD-3-Clause"
+readme = "README.md"
+description = "A proc macro regex library"
+keywords = ["regex", "proc-marco"]
+edition = "2018"
+include = [
+    "src/**/*.rs",
+    "tests/*.rs",
+    "examples/*.rs", 
+    "Cargo.toml",
+    "README.md",
+    "LICENSE",
+    ]
+repository = "https://github.com/LinkTed/proc-macro-regex"
+categories = ["text-processing"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+regex-syntax = "~0.6.23"
+proc-macro2 = "~1.0.26"
+quote = "~1.0.9"
+thiserror = "~1.0.24"
+
+[dependencies.syn]
+version = "~1.0.70"
+features = ["extra-traits"]
+
+[dev-dependencies]
+criterion = "~0.3.4"
+regex = "~1.4.6"
+
+[[bench]]
+name = "compare"
+harness = false
+path = "benches/compare.rs"

@@ -1,6 +1,6 @@
 [package]
 name = "proc-macro-regex"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["LinkTed <link.ted@mailbox.org>"]
 license = "BSD-3-Clause"
 readme = "README.md"

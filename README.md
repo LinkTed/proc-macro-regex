@@ -9,7 +9,7 @@ A proc macro regex library to match an arbitrary string or byte array to a regul
 Add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-proc-macro-regex = "~1.0.0"
+proc-macro-regex = "~1.1.0"
 ```
 
 ## Example

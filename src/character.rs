@@ -1,8 +1,10 @@
 use proc_macro2::{Ident, Span, TokenStream};
 use quote::quote;
 use regex_syntax::hir::{Class, ClassBytes, ClassUnicode, Literal};
-use std::collections::BTreeSet;
-use std::convert::{Into, TryFrom};
+use std::{
+    collections::BTreeSet,
+    convert::{Into, TryFrom},
+};
 use thiserror::Error;
 
 fn to_byte(c: char) -> CharacterResult<u8> {

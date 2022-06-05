@@ -1,9 +1,11 @@
-use crate::character::Character;
-use crate::dfa::Dfa;
-use crate::nfa::{Nfa, START_STATE};
-use std::convert::From;
+use crate::{
+    character::Character,
+    dfa::Dfa,
+    nfa::{Nfa, START_STATE},
+};
 use std::{
     collections::{BTreeMap, BTreeSet},
+    convert::From,
     fmt::Debug,
 };
 

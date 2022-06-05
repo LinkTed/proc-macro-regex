@@ -1,5 +1,7 @@
-use crate::character::Character;
-use crate::nfa::{NFAResult, Nfa};
+use crate::{
+    character::Character,
+    nfa::{NFAResult, Nfa},
+};
 use regex_syntax::hir::{Hir, Repetition, RepetitionKind, RepetitionRange};
 use std::collections::{BTreeMap, BTreeSet};
 

@@ -1,5 +1,7 @@
-use crate::character::Character;
-use crate::dfa::to_tokens::{usize_to_lit_int, DfaToTokens};
+use crate::{
+    character::Character,
+    dfa::to_tokens::{usize_to_lit_int, DfaToTokens},
+};
 use proc_macro2::{Span, TokenStream};
 use quote::{quote, ToTokens};
 use std::{

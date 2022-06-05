@@ -1,10 +1,9 @@
 use proc_macro2::Span;
-use syn::spanned::Spanned;
 use syn::{
     parse::{Parse, ParseStream, Result as ParseResult},
-    LitInt,
+    spanned::Spanned,
+    Ident, LitByteStr, LitInt, LitStr, Visibility,
 };
-use syn::{Ident, LitByteStr, LitStr, Visibility};
 
 const DEFAULT_LIMIT: usize = 65536;
 

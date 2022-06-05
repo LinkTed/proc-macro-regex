@@ -1,5 +1,4 @@
-use crate::character::Character;
-use crate::dfa::to_tokens::DfaToTokens;
+use crate::{character::Character, dfa::to_tokens::DfaToTokens};
 use proc_macro2::TokenStream;
 use quote::{quote, ToTokens};
 use std::collections::{BTreeMap, BTreeSet};

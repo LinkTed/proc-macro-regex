@@ -1,13 +1,11 @@
 mod nfa_to_dfa;
 mod to_tokens;
 
-use crate::character::Character;
-use crate::dfa::nfa_to_dfa::NfaToDfaIter;
 pub(super) use crate::dfa::to_tokens::DfaToTokens;
-use crate::nfa::Nfa;
-use std::convert::From;
+use crate::{character::Character, dfa::nfa_to_dfa::NfaToDfaIter, nfa::Nfa};
 use std::{
     collections::{BTreeMap, BTreeSet},
+    convert::From,
     fmt::Debug,
 };
 

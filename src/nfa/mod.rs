@@ -1,12 +1,17 @@
 mod repetition;
 
-use crate::character::{Character, CharacterError};
-use crate::macro_input::MacroInput;
-use regex_syntax::hir::{Anchor, Class, Group, Hir, HirKind, Literal, WordBoundary};
-use regex_syntax::ParserBuilder;
-use std::{cmp::max, convert::TryFrom};
+use crate::{
+    character::{Character, CharacterError},
+    macro_input::MacroInput,
+};
+use regex_syntax::{
+    hir::{Anchor, Class, Group, Hir, HirKind, Literal, WordBoundary},
+    ParserBuilder,
+};
 use std::{
+    cmp::max,
     collections::{BTreeMap, BTreeSet},
+    convert::TryFrom,
     fmt::Debug,
 };
 use syn::{Error as SynError, Result as SynResult};

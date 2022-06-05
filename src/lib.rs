@@ -3,9 +3,11 @@ mod dfa;
 mod macro_input;
 mod nfa;
 
-use crate::dfa::{Dfa, DfaToTokens};
-use crate::macro_input::MacroInput;
-use crate::nfa::Nfa;
+use crate::{
+    dfa::{Dfa, DfaToTokens},
+    macro_input::MacroInput,
+    nfa::Nfa,
+};
 use proc_macro::TokenStream;
 use quote::quote;
 use std::convert::TryFrom;

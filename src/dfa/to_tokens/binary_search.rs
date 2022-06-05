@@ -181,7 +181,7 @@ where
     }
 
     pub(super) fn for_each_binary_search(&self) -> TokenStream {
-        let states: Vec<usize> = self.required_states.iter().map(|state| *state).collect();
+        let states: Vec<usize> = self.required_states.iter().copied().collect();
         let iterator = T::get_iterator_function(self.is_byte);
         let transitions = self.transitions_binary_search_recursive(&states[..], 0, states.len());
         quote! {

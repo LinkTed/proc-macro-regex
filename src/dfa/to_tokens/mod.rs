@@ -2,7 +2,7 @@ mod binary_search;
 mod lookup_table;
 
 use crate::character::Character;
-use crate::dfa::DFA;
+use crate::dfa::Dfa;
 use crate::nfa::START_STATE;
 use proc_macro2::{Span, TokenStream};
 use quote::{quote, ToTokens};
@@ -19,7 +19,7 @@ pub(crate) struct DfaToTokens<T>
 where
     T: Character,
 {
-    dfa: DFA<T>,
+    dfa: Dfa<T>,
     threshold: usize,
     required_states: BTreeSet<usize>,
     is_byte: bool,
@@ -31,21 +31,21 @@ where
 {
     /// If `self.end_text` is `true` then only no accept-states have to be implemented.
     /// Because if the state machine reaches an accept-state, then it stops.
-    fn get_required_states(dfa: &DFA<T>) -> BTreeSet<usize> {
+    fn get_required_states(dfa: &Dfa<T>) -> BTreeSet<usize> {
         if dfa.end_text {
             dfa.states.clone()
         } else {
             let mut required_states = BTreeSet::new();
             for state in dfa.states.iter() {
                 if !dfa.accept_states.contains(state) {
-                    required_states.insert(state.clone());
+                    required_states.insert(*state);
                 }
             }
             required_states
         }
     }
 
-    fn is_byte(dfa: &DFA<T>) -> bool {
+    fn is_byte(dfa: &Dfa<T>) -> bool {
         for (_, transitions) in dfa.transitions.iter() {
             for (ch, _) in transitions.iter() {
                 if !ch.is_byte() {
@@ -73,7 +73,7 @@ impl<T> DfaToTokens<T>
 where
     T: Character + ToTokens + Copy + Into<u32>,
 {
-    pub(crate) fn new(dfa: DFA<T>, threshold: usize) -> DfaToTokens<T> {
+    pub(crate) fn new(dfa: Dfa<T>, threshold: usize) -> DfaToTokens<T> {
         let required_states = DfaToTokens::get_required_states(&dfa);
         let is_byte = DfaToTokens::is_byte(&dfa);
         DfaToTokens {

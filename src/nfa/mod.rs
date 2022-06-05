@@ -48,7 +48,7 @@ pub enum NFAError {
 }
 
 #[derive(Debug)]
-pub struct NFA<T>
+pub struct Nfa<T>
 where
     T: Character + Copy,
 {
@@ -60,7 +60,7 @@ where
     end_text: bool,
 }
 
-impl<T> NFA<T>
+impl<T> Nfa<T>
 where
     T: Character + Copy,
 {
@@ -103,7 +103,7 @@ where
                     }
                 }
             } else {
-                d.insert(new_source_state.clone(), new_characters_to_targets.clone());
+                d.insert(*new_source_state, new_characters_to_targets.clone());
             }
         }
     }
@@ -119,7 +119,7 @@ where
         Ok(())
     }
 
-    fn append_states(&mut self, nfa: &NFA<T>) -> NFAResult<()> {
+    fn append_states(&mut self, nfa: &Nfa<T>) -> NFAResult<()> {
         self.set_start_text(nfa.start_text)?;
         if !nfa.states.is_empty() {
             if self.end_text {
@@ -131,14 +131,14 @@ where
                 debug_assert!(assert);
                 self.state_count = max(*new_state, self.state_count);
             }
-            NFA::extend_transitions(&mut self.transitions, &nfa.transitions);
+            Nfa::extend_transitions(&mut self.transitions, &nfa.transitions);
         }
         self.end_text = nfa.end_text;
         Ok(())
     }
 
     fn next_state_count(&mut self) -> usize {
-        self.state_count = self.state_count + 1;
+        self.state_count += 1;
         self.state_count
     }
 
@@ -148,8 +148,8 @@ where
         Ok(new_state)
     }
 
-    fn sub(&mut self, hir: Hir) -> NFAResult<NFA<T>> {
-        let mut nfa = NFA {
+    fn sub(&mut self, hir: Hir) -> NFAResult<Nfa<T>> {
+        let mut nfa = Nfa {
             states: BTreeSet::new(),
             transitions: Transition::new(),
             accept_states: self.accept_states.clone(),
@@ -161,11 +161,11 @@ where
         Ok(nfa)
     }
 
-    fn new() -> NFA<T> {
+    fn new() -> Nfa<T> {
         let mut states = BTreeSet::new();
         states.insert(START_STATE);
 
-        NFA {
+        Nfa {
             states: states.clone(),
             transitions: Transition::new(),
             accept_states: states,
@@ -178,7 +178,7 @@ where
     fn char(&mut self, c: T) -> NFAResult<()> {
         let state = self.next_state()?;
         for s in self.accept_states.iter() {
-            NFA::add_transition(&mut self.transitions, *s, c, state);
+            Nfa::add_transition(&mut self.transitions, *s, c, state);
         }
         self.accept_states = BTreeSet::new();
         self.accept_states.insert(state);
@@ -195,16 +195,16 @@ where
         let cs = T::from_class(class)?;
         for c in cs {
             for s in &self.accept_states {
-                NFA::add_transition(&mut self.transitions, *s, c, state);
+                Nfa::add_transition(&mut self.transitions, *s, c, state);
             }
         }
         self.accept_states = BTreeSet::new();
-        self.accept_states.insert(state.clone());
+        self.accept_states.insert(state);
         Ok(())
     }
 
     fn alternation(&mut self, alternation: Vec<Hir>) -> NFAResult<()> {
-        if alternation.len() == 0 {
+        if alternation.is_empty() {
             return Err(NFAError::AlternationZeroLen);
         }
 
@@ -300,7 +300,7 @@ where
     }
 }
 
-impl<T> TryFrom<&MacroInput> for NFA<T>
+impl<T> TryFrom<&MacroInput> for Nfa<T>
 where
     T: Character + Copy,
 {
@@ -309,7 +309,7 @@ where
     fn try_from(input: &MacroInput) -> SynResult<Self> {
         let hir = to_hir::<T>(input)?;
 
-        let mut nfa = NFA::new();
+        let mut nfa = Nfa::new();
         match nfa.hir(hir) {
             Ok(_) => Ok(nfa),
             Err(e) => Err(SynError::new(

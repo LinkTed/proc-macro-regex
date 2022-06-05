@@ -26,8 +26,7 @@ impl Regex {
             Regex::LitStr(lit_str) => lit_str.value(),
             Regex::LitByteStr(lit_byte_str) => {
                 let bytes = lit_byte_str.value();
-                let regex = String::from_utf8(bytes).unwrap();
-                regex
+                String::from_utf8(bytes).unwrap()
             }
         }
     }

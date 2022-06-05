@@ -3,9 +3,9 @@ mod dfa;
 mod macro_input;
 mod nfa;
 
-use crate::dfa::{DfaToTokens, DFA};
+use crate::dfa::{Dfa, DfaToTokens};
 use crate::macro_input::MacroInput;
-use crate::nfa::NFA;
+use crate::nfa::Nfa;
 use proc_macro::TokenStream;
 use quote::quote;
 use std::convert::TryFrom;
@@ -59,8 +59,8 @@ pub fn regex(input: TokenStream) -> TokenStream {
     let name = input.get_name();
     let threshold = input.get_threshold();
     let (argument_type, body) = if input.is_str() {
-        let nfa = NFA::<char>::try_from(&input).unwrap();
-        let dfa = DFA::from(nfa);
+        let nfa = Nfa::<char>::try_from(&input).unwrap();
+        let dfa = Dfa::from(nfa);
         (
             quote! {
                 str
@@ -68,8 +68,8 @@ pub fn regex(input: TokenStream) -> TokenStream {
             DfaToTokens::new(dfa, threshold).get_token_streams(),
         )
     } else {
-        let nfa = NFA::<u8>::try_from(&input).unwrap();
-        let dfa = DFA::from(nfa);
+        let nfa = Nfa::<u8>::try_from(&input).unwrap();
+        let dfa = Dfa::from(nfa);
         (
             quote! {
                 [u8]

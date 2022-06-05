@@ -1,6 +1,6 @@
 use crate::character::Character;
-use crate::dfa::DFA;
-use crate::nfa::{NFA, START_STATE};
+use crate::dfa::Dfa;
+use crate::nfa::{Nfa, START_STATE};
 use std::convert::From;
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -15,7 +15,7 @@ pub(crate) struct NfaToDfaIter<T>
 where
     T: Character + Copy,
 {
-    nfa: NFA<T>,
+    nfa: Nfa<T>,
     states: BTreeSet<State>,
     new_states: BTreeSet<State>,
     transitions: BTreeSet<Transition<T>>,
@@ -26,7 +26,7 @@ impl<T> NfaToDfaIter<T>
 where
     T: Character + Copy,
 {
-    pub(super) fn new(nfa: NFA<T>) -> NfaToDfaIter<T> {
+    pub(super) fn new(nfa: Nfa<T>) -> NfaToDfaIter<T> {
         let mut start_state = BTreeSet::new();
         start_state.insert(START_STATE.to_owned());
 
@@ -117,7 +117,7 @@ where
     type Item = usize;
 
     fn next(&mut self) -> Option<usize> {
-        if self.new_states.len() == 0 {
+        if self.new_states.is_empty() {
             return None;
         }
 
@@ -130,7 +130,7 @@ where
     }
 }
 
-impl<T> From<NfaToDfaIter<T>> for DFA<T>
+impl<T> From<NfaToDfaIter<T>> for Dfa<T>
 where
     T: Character + Copy,
 {
@@ -189,7 +189,7 @@ where
             accept_states.insert(*s);
         }
 
-        DFA {
+        Dfa {
             states,
             transitions,
             accept_states,

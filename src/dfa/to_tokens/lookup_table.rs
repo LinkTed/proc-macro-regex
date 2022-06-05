@@ -80,7 +80,7 @@ where
     fn transitions_lookup_table(&self, int_type: &Ident) -> Option<TokenStream> {
         let mut table = Vec::new();
         for state in self.required_states.iter() {
-            let row = if let Some(transitions) = self.dfa.transitions.get(&state) {
+            let row = if let Some(transitions) = self.dfa.transitions.get(state) {
                 let transitions_u8 = DfaToTokens::<T>::lookup_table_u8_row_map(transitions)?;
                 self.lookup_table_row(&transitions_u8, int_type)
             } else {

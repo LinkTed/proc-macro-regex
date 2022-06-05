@@ -1,9 +1,9 @@
 use crate::character::Character;
-use crate::nfa::{NFAResult, NFA};
+use crate::nfa::{NFAResult, Nfa};
 use regex_syntax::hir::{Hir, Repetition, RepetitionKind, RepetitionRange};
 use std::collections::{BTreeMap, BTreeSet};
 
-impl<T> NFA<T>
+impl<T> Nfa<T>
 where
     T: Character + Copy,
 {
@@ -74,7 +74,7 @@ where
                         (true, true) => {
                             for source_state in self.accept_states.iter() {
                                 for target_state in self.accept_states.iter() {
-                                    NFA::add_transition(
+                                    Nfa::add_transition(
                                         &mut self.transitions,
                                         *target_state,
                                         character,
@@ -85,7 +85,7 @@ where
                         }
                         (true, false) => {
                             for source_state in self.accept_states.iter() {
-                                NFA::add_transition(
+                                Nfa::add_transition(
                                     &mut self.transitions,
                                     *source_state,
                                     character,
@@ -95,7 +95,7 @@ where
                         }
                         (false, true) => {
                             for target_state in self.accept_states.iter() {
-                                NFA::add_transition(
+                                Nfa::add_transition(
                                     &mut self.transitions,
                                     source_state,
                                     character,
@@ -104,7 +104,7 @@ where
                             }
                         }
                         (false, false) => {
-                            NFA::add_transition(
+                            Nfa::add_transition(
                                 &mut self.transitions,
                                 source_state,
                                 character,
@@ -141,7 +141,7 @@ where
         for (character, targets) in backwards_characters_to_targets {
             for target_state in targets {
                 for accept_state in nfa.accept_states.iter() {
-                    NFA::add_transition(
+                    Nfa::add_transition(
                         &mut nfa.transitions,
                         *accept_state,
                         character,

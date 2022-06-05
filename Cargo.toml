@@ -22,18 +22,18 @@ categories = ["text-processing"]
 proc-macro = true
 
 [dependencies]
-regex-syntax = "~0.6.23"
-proc-macro2 = "~1.0.26"
-quote = "~1.0.9"
-thiserror = "~1.0.24"
+regex-syntax = "~0.6.26"
+proc-macro2 = "~1.0.36"
+quote = "~1.0.18"
+thiserror = "~1.0.31"
 
 [dependencies.syn]
-version = "~1.0.70"
+version = "~1.0.96"
 features = ["extra-traits"]
 
 [dev-dependencies]
-criterion = "~0.3.4"
-regex = "~1.4.6"
+criterion = "~0.3.5"
+regex = "~1.5.6"
 
 [[bench]]
 name = "compare"

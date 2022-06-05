@@ -1,5 +1,5 @@
 # proc-macro-regex
-A proc macro regex library to match an arbitrary string or byte array to regular expression.
+A proc macro regex library to match an arbitrary string or byte array to a regular expression.
 [![Build status](https://github.com/LinkTed/proc-macro-regex/workflows/Continuous%20Integration/badge.svg)](https://github.com/LinkTed/proc-macro-regex/actions?query=workflow%3A%22Continuous+Integration%22)
 [![Latest version](https://img.shields.io/crates/v/proc-macro-regex.svg)](https://crates.io/crates/proc-macro-regex)
 [![Dependency status](https://deps.rs/repo/github/linkted/proc-macro-regex/status.svg)](https://deps.rs/repo/github/linkted/proc-macro-regex)
@@ -59,7 +59,6 @@ fn example_1(s: &str) -> bool {
 }
 ```
 
-
 To tell the macro that the lookup table is not allowed to be bigger than 256 bytes, a third 
 argument can be given. Therefore, a code base implementation (binary search) of the DFA is 
 generated.
@@ -96,8 +95,7 @@ fn example_2(s: &str) -> bool {
 }
 ```
 
-
-To change the visibility of the function add the keywords at the beginning of the arguments. 
+To change the visibility of the function, add the keywords at the beginning of the arguments. 
 ```rust
 regex!(pub example_2 "abc" 256);
 ```
@@ -108,7 +106,7 @@ pub fn example_3(s: &str) -> bool {
 }
 ```
 
-To parse a byte array instead of sting, pass a byte string.
+To parse a byte array instead of string, pass a byte string.
 ```rust
 regex!(example_4 b"abc");
 ```
@@ -138,7 +136,7 @@ Disadvantages:
 
 ### Performance
 This is the performance comparison between this crate and the regex crate. If you want to test it 
-be yourself run `cargo bench --bench compare`.
+by yourself, run `cargo bench --bench compare`.
 
 | Name   | `proc-macro-regex` |      `regex` |  Result |
 |--------|--------------:|-------------:|--------:|

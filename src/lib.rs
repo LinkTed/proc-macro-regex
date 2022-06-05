@@ -22,7 +22,7 @@ use syn::parse_macro_input;
 /// ```
 ///
 /// Alternative, if the first argument is a visibility keyword, then this is the visibility of the
-/// function, otherwise the function is private. Example:
+/// function. Otherwise, the function is private. Example:
 /// ```rust
 /// # use proc_macro_regex::regex;
 /// regex!(pub public_function "the function is public");
@@ -30,7 +30,7 @@ use syn::parse_macro_input;
 /// ```
 ///
 /// The next argument is a string of the regex, which the function should check. Alternative, a
-/// byte string can be given, if the input should be a byte array (`&[u8]`), otherwise a string is
+/// byte string can be given, if the input should be a byte array (`&[u8]`). otherwise a string is
 /// taken.
 /// ```rust
 /// # use proc_macro_regex::regex;
@@ -38,7 +38,7 @@ use syn::parse_macro_input;
 /// regex!(bytes_function "This function takes a byte array");
 /// ```
 ///
-/// At the end a positive number can be given to set the limit of the lookup table
+/// At the end, a positive number can be given to set the limit of the lookup table
 /// (see `README.md`).
 /// ```rust
 /// # use proc_macro_regex::regex;
@@ -51,7 +51,7 @@ use syn::parse_macro_input;
 ///   beginning of the text.
 /// * If the `$` is at the end, then it is checked if the input is match at the end of the text.
 /// * If both are present then the whole input is checked.
-/// * Otherwise is check if the string contains the regex.
+/// * Otherwise, is check if the string contains the regex.
 #[proc_macro]
 pub fn regex(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as MacroInput);

@@ -6,7 +6,6 @@ use proc_macro2::{Span, TokenStream};
 use quote::{quote, ToTokens};
 use std::{
     collections::{BTreeMap, BTreeSet},
-    convert::Into,
     mem::size_of,
 };
 use syn::Ident;

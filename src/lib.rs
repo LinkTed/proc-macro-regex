@@ -10,7 +10,6 @@ use crate::{
 };
 use proc_macro::TokenStream;
 use quote::quote;
-use std::convert::TryFrom;
 use syn::parse_macro_input;
 
 /// The macro creates a function which returns `true` if the argument matches the regex.

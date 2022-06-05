@@ -4,7 +4,7 @@ mod lookup_table;
 use crate::{character::Character, dfa::Dfa, nfa::START_STATE};
 use proc_macro2::{Span, TokenStream};
 use quote::{quote, ToTokens};
-use std::{collections::BTreeSet, convert::Into};
+use std::collections::BTreeSet;
 use syn::LitInt;
 
 fn usize_to_lit_int(i: usize) -> LitInt {

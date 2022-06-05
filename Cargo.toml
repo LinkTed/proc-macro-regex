@@ -6,7 +6,7 @@ license = "BSD-3-Clause"
 readme = "README.md"
 description = "A proc macro regex library"
 keywords = ["regex", "proc-marco"]
-edition = "2018"
+edition = "2021"
 include = [
     "src/**/*.rs",
     "tests/*.rs",

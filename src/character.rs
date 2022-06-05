@@ -52,6 +52,10 @@ pub trait Character: Sized + Ord + TryFrom<u32> + Into<u32> {
     fn get_iterator_function(is_byte: bool) -> Ident;
 
     fn to_usize(element: Ident, is_byte: bool) -> TokenStream;
+
+    fn allow_invalid_utf8() -> bool;
+
+    fn unicode() -> bool;
 }
 
 impl Character for char {
@@ -123,6 +127,14 @@ impl Character for char {
             #element as usize
         }
     }
+
+    fn allow_invalid_utf8() -> bool {
+        false
+    }
+
+    fn unicode() -> bool {
+        true
+    }
 }
 
 impl Character for u8 {
@@ -187,5 +199,13 @@ impl Character for u8 {
         quote! {
             *#element as usize
         }
+    }
+
+    fn allow_invalid_utf8() -> bool {
+        true
+    }
+
+    fn unicode() -> bool {
+        false
     }
 }

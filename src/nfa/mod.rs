@@ -18,8 +18,14 @@ type Transition<T> = BTreeMap<usize, BTreeMap<T, BTreeSet<usize>>>;
 
 pub type NFAResult<T> = Result<T, NFAError>;
 
-fn to_hir(input: &MacroInput) -> SynResult<Hir> {
-    let mut parser = ParserBuilder::new().unicode(false).build();
+fn to_hir<T>(input: &MacroInput) -> SynResult<Hir>
+where
+    T: Character,
+{
+    let mut parser = ParserBuilder::new()
+        .unicode(T::unicode())
+        .allow_invalid_utf8(T::allow_invalid_utf8())
+        .build();
     match parser.parse(&input.get_regex()) {
         Ok(hir) => Ok(hir),
         Err(e) => Err(SynError::new(
@@ -301,7 +307,7 @@ where
     type Error = SynError;
 
     fn try_from(input: &MacroInput) -> SynResult<Self> {
-        let hir = to_hir(input)?;
+        let hir = to_hir::<T>(input)?;
 
         let mut nfa = NFA::new();
         match nfa.hir(hir) {
